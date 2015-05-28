@@ -7,12 +7,12 @@ const performanceNow = require('react/lib/performanceNow');
  * Updates the value of `cellCreationPathToInfoMap` in the state tree to the
  * value it should be in the new frame.
  * Specifically, the following things happen.
- * - First off, every Cell in the Root (except, of course, the QuietCell) grows
- * in height, regardless of whether it is in the division zone or in the
+ * - First off, every Cell in the RootColumn (except, of course, the QuietCell)
+ * grows in height, regardless of whether it is in the division zone or in the
  * elongation zone.
  * - The rate of height growth is the same across all Cells: 10 pixels per
  * *virtual* hour.
- * - If the Cell is one of the bottom 20 Cells in the Root (excluding the
+ * - If the Cell is one of the bottom 20 Cells in the RootColumn (excluding the
  * QuietCell), then it *splits* a certain number of hours after its creation.
  * - This duration before splitting is defined at the time of the Cell's
  * creation.
@@ -22,7 +22,7 @@ const performanceNow = require('react/lib/performanceNow');
  * replaced with two new Cells:
  *  - path 1.1**.1** / height **50**
  *  - path 1.1**.2** / height **50**
- *  - `.1` means a higher position within the Root than `.2`.
+ *  - `.1` means a higher position within the RootColumn than `.2`.
  * - This idea of defining creation paths as strings is particularly useful when
  * we need to tell which cells belong in the "bottom 20".
  * All we would have to do is just sort the strings!

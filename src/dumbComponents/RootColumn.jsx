@@ -1,13 +1,13 @@
-require('./Root.scss');
+require('./RootColumn.scss');
 
 const QuietCell = require('./QuietCell.jsx');
 const utils = require('../utils.jsx');
 
 /**
  * A 100px-width column of vertically aligned Cells.
- * There is always one QuietCell at the bottom of the Root.
+ * There is always one QuietCell at the bottom of the RootColumn.
  */
-class Root extends utils.PureRenderComponent {
+class RootColumn extends utils.PureRenderComponent {
   render() {
     return (
       <div className="root-vz0v23r">
@@ -18,4 +18,4 @@ class Root extends utils.PureRenderComponent {
   }
 }
 
-module.exports = Root;
+module.exports = RootColumn;
