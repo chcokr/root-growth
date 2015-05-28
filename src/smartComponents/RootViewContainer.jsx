@@ -15,8 +15,7 @@ const baobab = require('baobab-react/decorators');
  */
 @baobab.branch({
   cursors: {
-    cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap,
-    virtualHourElapsePerVisualSec: cursors.virtualHourElapsePerVisualSec
+    cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap
   }
 })
 class RootViewContainer extends utils.PureRenderComponent {
