@@ -5,13 +5,13 @@ const utils = require('../utils.jsx');
 const React = require('react');
 
 /**
- * A rectangle with a black solid 1px border.
+ * A rectangle whose width fills the parent flex container.
  */
 class Cell extends utils.PureRenderComponent {
   static propTypes = {
+    backgroundColor: React.PropTypes.string,
     height: React.PropTypes.number,
-    showBottomBorder: React.PropTypes.bool,
-    backgroundColor: React.PropTypes.string
+    showBottomBorder: React.PropTypes.bool
   };
 
   static defaultProps = {
