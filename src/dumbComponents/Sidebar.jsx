@@ -7,12 +7,6 @@ const utils = require('../utils.jsx');
  */
 class Sidebar extends utils.PureRenderComponent {
   render() {
-    const vals = this.props.configurableVals;
-    const valNames = Object.keys(this.props.configurableVals);
-
-    const listItems = valNames.map((name, i) =>
-      <li key={i}>{name}: {vals[valNames]}</li>);
-
     const hoursElapsed = this.props.virtualHoursElapsed;
 
     return (
@@ -22,9 +16,6 @@ class Sidebar extends utils.PureRenderComponent {
           ({(hoursElapsed / 24).toFixed(1)} days)
           elapsed
         </p>
-        <ul>
-          {listItems}
-        </ul>
       </div>
     );
   }
