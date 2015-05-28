@@ -7,18 +7,16 @@ const React = require('react');
 
 /**
  * A Cell with a bottom border.
- * This Cell always maintains a fixed height.
+ * This Cell always maintains a fixed height: 100px.
  * It is meant to be placed at the bottom of a RootColumn.
  */
 class QuietCell extends utils.PureRenderComponent {
-  static propTypes = {
-    height: React.PropTypes.number
-  };
-
   render() {
     return (
       <Cell
-        showBottomBorder={true} />
+        height={100}
+        showBottomBorder={true}
+      />
     );
   }
 }
