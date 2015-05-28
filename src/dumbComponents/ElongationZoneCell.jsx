@@ -10,15 +10,21 @@ const React = require('react');
  */
 class ElongationZoneCell extends utils.PureRenderComponent {
   static propTypes = {
-    height: React.PropTypes.number.isRequired
+    height: React.PropTypes.number.isRequired,
+    sameBorderColor: React.PropTypes.bool
+  };
+
+  static defaultPropTypes = {
+    sameBorderColor: false
   };
 
   render() {
     return (
       <Cell
         backgroundColor="blue"
+        borderColor={this.props.sameBorderColor ? 'blue' : 'black'}
         height = {this.props.height}
-        />
+      />
     );
   }
 }

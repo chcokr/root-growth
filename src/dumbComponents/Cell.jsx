@@ -10,12 +10,14 @@ const React = require('react');
 class Cell extends utils.PureRenderComponent {
   static propTypes = {
     backgroundColor: React.PropTypes.string,
+    borderColor: React.PropTypes.string,
     height: React.PropTypes.number,
     showBottomBorder: React.PropTypes.bool
   };
 
   static defaultProps = {
     backgroundColor: '#fff',
+    borderColor: '#000',
     height: 100,
     showBottomBorder: false
   };
@@ -26,6 +28,7 @@ class Cell extends utils.PureRenderComponent {
         className="cell-239f0j2f"
         style={{
           backgroundColor: this.props.backgroundColor,
+          borderColor: this.props.borderColor,
           height: this.props.height,
           borderBottom: !this.props.showBottomBorder ? '' :
             '1px solid #000000'

@@ -19,5 +19,28 @@ module.exports = new Baobab({
   virtualHourElapsePerVisualSec: 12,
   virtualHoursElapsed: 0
 }, {
+  facets: {
+    rootHeight: {
+      cursors: {
+        cellCreationPathToInfoMap: ['cellCreationPathToInfoMap']
+      },
+      get(data) {
+        const map = data.cellCreationPathToInfoMap;
+        const paths = Object.keys(map);
+
+        let totalHeight = 0;
+        for (let path of paths) {
+          // 1px for the top border of the Cell
+          totalHeight += map[path].height + 1;
+        }
+
+        // 100px for the QuietCell height,
+        // 2px for its top and bottom borders
+        totalHeight += 100 + 2;
+
+        return totalHeight;
+      }
+    }
+  },
   syncwrite: true
 });
