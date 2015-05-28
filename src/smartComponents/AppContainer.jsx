@@ -6,6 +6,11 @@ const utils = require('../utils.jsx');
 
 const baobab = require('baobab-react/decorators');
 
+/**
+ * A wrapper around App that gives it a RootViewContainer and a
+ * SidebarContainer.
+ * Also defines the Baobab context for the state tree.
+ */
 @baobab.root(stateTree)
 class AppContainer extends utils.PureRenderComponent {
   render() {

@@ -9,8 +9,8 @@ const utils = require('./utils.jsx');
 
 const React = require('react');
 
-// Some files/modules in this project don't import React, but when Babel
-// transpiles the JSX DOM tags, it seems to output stuff like
+// Some files/modules in this project don't import React but do include JSX.
+// Now, when Babel transpiles the JSX DOM tags, it seems to output stuff like
 // React.createElement.
 // In such a case React would be undefined and the consequent JS error would
 // stop the entire application from continuing.

@@ -2,6 +2,9 @@ require('./App.scss');
 
 const utils = require('../utils.jsx');
 
+/**
+ * A simple flex container of a 100vw width that centers children.
+ */
 class App extends utils.PureRenderComponent {
   render() {
     return (

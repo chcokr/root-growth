@@ -7,6 +7,12 @@ const utils = require('../utils.jsx');
 const _ = require('lodash');
 const baobab = require('baobab-react/decorators');
 
+/**
+ * A wrapper around RootView, which contains the Cells defined in the state
+ * cursor `cellCreationPathToInfoMap`.
+ * The bottom twenty of the Cells (excluding the QuietCell) get converted into a
+ * DivisionZoneCell, and the others are converted into an ElongationZoneCell.
+ */
 @baobab.branch({
   cursors: {
     cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap,

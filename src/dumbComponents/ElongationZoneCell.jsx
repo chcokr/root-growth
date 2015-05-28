@@ -5,6 +5,9 @@ const utils = require('../utils.jsx');
 
 const React = require('react');
 
+/**
+ * A Cell with a blue background-color.
+ */
 class ElongationZoneCell extends utils.PureRenderComponent {
   static propTypes = {
     height: React.PropTypes.number.isRequired

@@ -4,6 +4,7 @@ const performanceNow = require('react/lib/performanceNow');
 
 const now = performanceNow();
 
+// For a description of each property in the tree, see stateCursors.jsx.
 module.exports = new Baobab({
   cellCreationPathToInfoMap: _.range(1, 6).reduce((map, i) => {
     map[i] = {

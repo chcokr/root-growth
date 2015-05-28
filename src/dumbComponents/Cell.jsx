@@ -4,6 +4,9 @@ const utils = require('../utils.jsx');
 
 const React = require('react');
 
+/**
+ * A rectangle with a black solid 1px border.
+ */
 class Cell extends utils.PureRenderComponent {
   static propTypes = {
     height: React.PropTypes.number,

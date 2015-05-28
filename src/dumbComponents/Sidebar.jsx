@@ -2,6 +2,9 @@ require('./Sidebar.scss');
 
 const utils = require('../utils.jsx');
 
+/**
+ * The side menu of the application.
+ */
 class Sidebar extends utils.PureRenderComponent {
   render() {
     const vals = this.props.configurableVals;

@@ -4,6 +4,9 @@ const utils = require('../utils.jsx');
 
 const baobab = require('baobab-react/decorators');
 
+/**
+ * A wrapper around Sidebar that provides it with the state cursors it needs.
+ */
 @baobab.branch({
   cursors: {
     virtualHourElapsePerVisualSec: cursors.virtualHourElapsePerVisualSec,
