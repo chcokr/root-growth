@@ -4,7 +4,7 @@ const cursors = require('../stateCursors.jsx');
 const RootView = require('../dumbComponents/RootView.jsx');
 const utils = require('../utils.jsx');
 
-const _ = require('lodash');
+const _ = require('../lodash.jsx');
 const baobab = require('baobab-react/decorators');
 
 /**
@@ -36,26 +36,23 @@ class RootViewContainer extends utils.PureRenderComponent {
     const pathsSorted = paths.sort();
 
     const divisionZoneCells =
-      _(pathsSorted)
-        .takeRight(20)
+      _.takeRight(pathsSorted, 20)
         .map((path, i) =>
           <DivisionZoneCell
             height={map[path].height}
             key={`div${i}`}
             sameBorderColor={map[path].height / this.props.rootHeight < 0.001}
-          />)
-        .value();
+          />);
 
     const elongationZoneCells =
-      _(pathsSorted)
+      pathsSorted
         .slice(0, Math.max(0, pathsSorted.length - 20))
         .map((path, i) =>
           <ElongationZoneCell
             height={map[path].height}
             key={`elong${i}`}
             sameBorderColor={map[path].height / this.props.rootHeight < 0.001}
-          />)
-        .value();
+          />);
 
     // Lower index means higher position in the root.
     const cells = [

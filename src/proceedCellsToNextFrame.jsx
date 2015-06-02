@@ -1,6 +1,6 @@
 const cursors = require('./stateCursors.jsx');
 
-const _ = require('lodash');
+const _ = require('./lodash.jsx');
 const performanceNow = require('react/lib/performanceNow');
 
 /**
@@ -66,7 +66,7 @@ function proceedCellsToNextFrame(nextFrameTimeMs) {
 
     // A cell in bottom 20 gets to split between 18 and 22 hours since its
     // creation.
-    if (_.contains(bottom20, path) &&
+    if (_.includes(bottom20, path) &&
         virtualHrElapsedSinceCreation > durationHr) {
 
       // Lower number means higher position.

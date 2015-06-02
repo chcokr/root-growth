@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const _ = require('./lodash.jsx');
 const Baobab = require('baobab');
 const performanceNow = require('react/lib/performanceNow');
 
