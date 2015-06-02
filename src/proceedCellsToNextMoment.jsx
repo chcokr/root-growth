@@ -1,10 +1,8 @@
-const cursors = require('./stateCursors.jsx');
-
 const _ = require('./lodash.jsx');
 
 /**
- * Updates the value of `cellCreationPathToInfoMap` in the state tree to the
- * value it should be at the new virtual moment.
+ * Computes and returns the new value of `cellCreationPathToInfoMap` to be
+ * stored in the state tree at the the new virtual moment.
  * Specifically, the following things happen.
  * - First off, every Cell in the RootColumn (except, of course, the QuietCell)
  * grows in height, regardless of whether it is in the division zone or in the
@@ -27,34 +25,38 @@ const _ = require('./lodash.jsx');
  * we need to tell which cells belong in the "bottom 20".
  * All we would have to do is just sort the strings!
  *
+ * @param {object} curCellCreationPathToInfoMap The info map at the current
+ * moment.
  * @param {number} nextMomentVirtualHr The number of virtual hours that have
  * elapsed since the start of rendition.
- * @returns {void}
+ * @returns {object} The next version of the info map.
  */
-function proceedCellsToNextMoment(nextMomentVirtualHr) {
+function proceedCellsToNextMoment(
+  curCellCreationPathToInfoMap,
+  nextMomentVirtualHr
+) {
 
-  const infoMapCursor = cursors.cellCreationPathToInfoMap;
-  const infoMap = infoMapCursor.get();
+  const origInfoMap = curCellCreationPathToInfoMap;
 
-  const paths = Object.keys(infoMap);
-  const pathsSorted = Object.keys(infoMap).sort();
+  let newInfoMap = _.cloneDeep(origInfoMap);
+
+  const paths = Object.keys(origInfoMap);
+  const pathsSorted = Object.keys(origInfoMap).sort();
   const bottom20 = _.takeRight(pathsSorted, 20);
 
   // Grow each cell's height.
   for (let path of paths) {
-
-    const createTimeVirtualHr = infoMap[path].createTimeVirtualHr;
-    const durationHr = infoMap[path].durationHr;
-    const height = infoMap[path].height;
-    const lastTouchedVirtualHr = infoMap[path].lastTouchedVirtualHr;
+    const createTimeVirtualHr = origInfoMap[path].createTimeVirtualHr;
+    const durationHr = origInfoMap[path].durationHr;
+    const height = origInfoMap[path].height;
+    const lastTouchedVirtualHr = origInfoMap[path].lastTouchedVirtualHr;
 
     const virtualHrElapsedSinceLastTouch =
       nextMomentVirtualHr - lastTouchedVirtualHr;
 
-    infoMapCursor.set([path, 'height'],
-      height + virtualHrElapsedSinceLastTouch * 10); // 10 = speed of growth
-    cursors.cellCreationPathToInfoMap.set([path, 'lastTouchedVirtualHr'],
-      nextMomentVirtualHr);
+    newInfoMap[path].height =
+      height + virtualHrElapsedSinceLastTouch * 10; // 10 = speed of growth
+    newInfoMap[path].lastTouchedVirtualHr = nextMomentVirtualHr;
 
     const virtualHrElapsedSinceCellCreation =
       nextMomentVirtualHr - createTimeVirtualHr;
@@ -65,25 +67,26 @@ function proceedCellsToNextMoment(nextMomentVirtualHr) {
         virtualHrElapsedSinceCellCreation > durationHr) {
 
       // Lower number means higher position.
-      infoMapCursor.set(`${path}.1`, {
+      newInfoMap[`${path}.1`] = {
         createTimeVirtualHr: nextMomentVirtualHr,
         durationHr: _.random(18, 22, true),
         height: height / 2,
         lastTouchedVirtualHr: nextMomentVirtualHr
-      });
+      };
 
-      infoMapCursor.set(`${path}.2`, {
+      newInfoMap[`${path}.2`] = {
         createTimeVirtualHr: nextMomentVirtualHr,
         durationHr: _.random(18, 22, true),
         height: height / 2,
         lastTouchedVirtualHr: nextMomentVirtualHr
-      });
+      };
 
-      infoMapCursor.unset(path);
+      delete newInfoMap[path];
 
     }
   }
 
+  return newInfoMap;
 }
 
 module.exports = proceedCellsToNextMoment;

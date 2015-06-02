@@ -1,9 +1,10 @@
 const _ = require('./lodash.jsx');
+const getRootHeight = require('./getRootHeight.jsx');
+
 const Baobab = require('baobab');
 
-// For a description of each property in the tree, see stateCursors.jsx.
-module.exports = new Baobab({
-  cellCreationPathToInfoMap: _.range(1, 6).reduce((map, i) => {
+const initCellCreationPathToInfoMap =
+  _.range(1, 6).reduce((map, i) => {
     map[i] = {
       createTimeVirtualHr: 0,
       durationHr: _.random(18, 22, true),
@@ -11,7 +12,27 @@ module.exports = new Baobab({
       lastTouchedVirtualHr: 0
     };
     return map;
-  }, {}),
+  }, {});
+
+const actDiffuCoeff = 0.01;
+
+// For a description of each property in the tree, see stateCursors.jsx.
+module.exports = new Baobab({
+  cellCreationPathToInfoMap: initCellCreationPathToInfoMap,
+  diffeq: {
+    concens: {
+      act: [],
+      inh: []
+    },
+    consts: {
+      actDecayCoeff: 0.02,
+      actDiffuCoeff,
+      aiCellThreshold: 10,
+      inhDecayCoeff: 0.03,
+      inhDiffuCoeff: 0.4,
+      sourceDensity: actDiffuCoeff * 0.99
+    }
+  },
   virtualHoursElapsed: 0
 }, {
   facets: {
@@ -20,22 +41,10 @@ module.exports = new Baobab({
         cellCreationPathToInfoMap: ['cellCreationPathToInfoMap']
       },
       get(data) {
-        const map = data.cellCreationPathToInfoMap;
-        const paths = Object.keys(map);
-
-        let totalHeight = 0;
-        for (let path of paths) {
-          // 1px for the top border of the Cell
-          totalHeight += map[path].height + 1;
-        }
-
-        // 100px for the QuietCell height,
-        // 2px for its top and bottom borders
-        totalHeight += 100 + 2;
-
-        return totalHeight;
+        return getRootHeight(data.cellCreationPathToInfoMap);
       }
     }
   },
+  asynchronous: false,
   syncwrite: true
 });

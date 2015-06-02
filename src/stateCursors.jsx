@@ -18,6 +18,36 @@ const stateTree = require('./stateTree.jsx');
 module.exports.cellCreationPathToInfoMap =
   stateTree.select('cellCreationPathToInfoMap');
 
+module.exports.diffeq = {};
+
+module.exports.diffeq.concens = {};
+
+module.exports.diffeq.concens.act =
+  stateTree.select('diffeq', 'concens', 'act');
+
+module.exports.diffeq.concens.inh =
+  stateTree.select('diffeq', 'concens', 'inh');
+
+module.exports.diffeq.consts = {};
+
+module.exports.diffeq.consts.actDecayCoeff =
+  stateTree.select('diffeq', 'consts', 'actDecayCoeff');
+
+module.exports.diffeq.consts.actDiffuCoeff =
+  stateTree.select('diffeq', 'consts', 'actDiffuCoeff');
+
+module.exports.diffeq.consts.aiCellThreshold =
+  stateTree.select('diffeq', 'consts', 'aiCellThreshold');
+
+module.exports.diffeq.consts.inhDecayCoeff =
+  stateTree.select('diffeq', 'consts', 'inhDecayCoeff');
+
+module.exports.diffeq.consts.inhDiffuCoeff =
+  stateTree.select('diffeq', 'consts', 'inhDiffuCoeff');
+
+module.exports.diffeq.consts.sourceDensity =
+  stateTree.select('diffeq', 'consts', 'sourceDensity');
+
 /**
  * The number of virtual hours that has elapsed since the current simulation
  * session began.

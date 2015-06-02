@@ -11,7 +11,10 @@ class RootView extends utils.PureRenderComponent {
   render() {
     return (
       <div className="root-view-aoviwha232fz">
-        <RootColumn cells={this.props.cells} />
+        <RootColumn
+          cells={this.props.cells}
+          inhConcens={this.props.inhConcens}
+        />
       </div>
     );
   }
