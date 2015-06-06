@@ -54,9 +54,9 @@ function proceedCellsToNextFrame(nextFrameTimeMs) {
       (visualMsElapsedSinceLastTouch / 1000) *
         cursors.virtualHourElapsePerVisualSec.get();
 
-    cursors.cellCreationPathToInfoMap.set([path, 'height'],
+    mapCursor.set([path, 'height'],
       height + virtualHrElapsedSinceLastTouch * 10); // 10 = speed of growth
-    cursors.cellCreationPathToInfoMap.set([path, 'lastTouchedMs'], now);
+    mapCursor.set([path, 'lastTouchedMs'], now);
 
     const visualMsElapsedSinceCreation =
       nextFrameTimeMs - createTimeMs;
