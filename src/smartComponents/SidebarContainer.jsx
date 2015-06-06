@@ -9,7 +9,6 @@ const baobab = require('baobab-react/decorators');
  */
 @baobab.branch({
   cursors: {
-    virtualHourElapsePerVisualSec: cursors.virtualHourElapsePerVisualSec,
     virtualHoursElapsed: cursors.virtualHoursElapsed
   }
 })
@@ -18,7 +17,6 @@ class SidebarContainer extends utils.PureRenderComponent {
     return (
       <Sidebar
         virtualHoursElapsed={this.props.virtualHoursElapsed}
-        configurableVals={this.props.virtualHourElapsePerVisualSec}
         />
     );
   }
