@@ -2,9 +2,7 @@ require('./index.scss');
 
 const AppContainer = require('./smartComponents/AppContainer.jsx');
 const cursors = require('./stateCursors.jsx');
-const proceedCellsToNextFrame = require('./proceedCellsToNextFrame.jsx');
-const proceedVirtualHoursToNextFrame =
-  require('./proceedVirtualHoursToNextFrame.jsx');
+const proceedCellsToNextMoment = require('./proceedCellsToNextMoment.jsx');
 const utils = require('./utils.jsx');
 
 const React = require('react');
@@ -24,13 +22,14 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
 (async function () {
   while (true) {
 
-    const nextFrameTimeMs = await utils.rafAsync();
+    // Defines the delay between every rendered moment.
+    await Promise.delay(50);
 
-    cursors.curFrameTimeMs.set(nextFrameTimeMs);
+    const curMomentVirtualHr = cursors.virtualHoursElapsed.get();
+    const nextMomentVirtualHr = curMomentVirtualHr + 2;
+    cursors.virtualHoursElapsed.set(nextMomentVirtualHr);
 
-    proceedVirtualHoursToNextFrame(nextFrameTimeMs);
-
-    proceedCellsToNextFrame(nextFrameTimeMs);
+    proceedCellsToNextMoment(nextMomentVirtualHr);
 
   }
 })();

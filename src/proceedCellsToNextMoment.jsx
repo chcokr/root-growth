@@ -1,19 +1,19 @@
 const cursors = require('./stateCursors.jsx');
 
 const _ = require('./lodash.jsx');
-const performanceNow = require('react/lib/performanceNow');
 
 /**
  * Updates the value of `cellCreationPathToInfoMap` in the state tree to the
- * value it should be in the new frame.
+ * value it should be at the new virtual moment.
  * Specifically, the following things happen.
  * - First off, every Cell in the RootColumn (except, of course, the QuietCell)
  * grows in height, regardless of whether it is in the division zone or in the
  * elongation zone.
  * - The rate of height growth is the same across all Cells: 10 pixels per
- * *virtual* hour.
+ * virtual hour.
  * - If the Cell is one of the bottom 20 Cells in the RootColumn (excluding the
- * QuietCell), then it *splits* a certain number of hours after its creation.
+ * QuietCell), then it *splits* a certain number of virtual hours after its
+ * creation.
  * - This duration before splitting is defined at the time of the Cell's
  * creation.
  * It is defined to be a random floating number between `18.0` and `22.0`.
@@ -27,11 +27,11 @@ const performanceNow = require('react/lib/performanceNow');
  * we need to tell which cells belong in the "bottom 20".
  * All we would have to do is just sort the strings!
  *
- * @param {number} nextFrameTimeMs The UTC timestamp (in *visual* milliseconds)
- * at which the next frame of the application starts being considered.
+ * @param {number} nextMomentVirtualHr The number of virtual hours that have
+ * elapsed since the start of rendition.
  * @returns {void}
  */
-function proceedCellsToNextFrame(nextFrameTimeMs) {
+function proceedCellsToNextMoment(nextMomentVirtualHr) {
 
   const infoMapCursor = cursors.cellCreationPathToInfoMap;
   const infoMap = infoMapCursor.get();
@@ -42,46 +42,41 @@ function proceedCellsToNextFrame(nextFrameTimeMs) {
 
   // Grow each cell's height.
   for (let path of paths) {
-    const now = performanceNow();
 
-    const createTimeMs = infoMap[path].createTimeMs;
+    const createTimeVirtualHr = infoMap[path].createTimeVirtualHr;
     const durationHr = infoMap[path].durationHr;
     const height = infoMap[path].height;
-    const lastTouchedMs = infoMap[path].lastTouchedMs;
+    const lastTouchedVirtualHr = infoMap[path].lastTouchedVirtualHr;
 
-    const visualMsElapsedSinceLastTouch = nextFrameTimeMs - lastTouchedMs;
     const virtualHrElapsedSinceLastTouch =
-      (visualMsElapsedSinceLastTouch / 1000) *
-        cursors.virtualHourElapsePerVisualSec.get();
+      nextMomentVirtualHr - lastTouchedVirtualHr;
 
     infoMapCursor.set([path, 'height'],
       height + virtualHrElapsedSinceLastTouch * 10); // 10 = speed of growth
-    infoMapCursor.set([path, 'lastTouchedMs'], now);
+    cursors.cellCreationPathToInfoMap.set([path, 'lastTouchedVirtualHr'],
+      nextMomentVirtualHr);
 
-    const visualMsElapsedSinceCreation =
-      nextFrameTimeMs - createTimeMs;
-    const virtualHrElapsedSinceCreation =
-      (visualMsElapsedSinceCreation / 1000) *
-        cursors.virtualHourElapsePerVisualSec.get();
+    const virtualHrElapsedSinceCellCreation =
+      nextMomentVirtualHr - createTimeVirtualHr;
 
     // A cell in bottom 20 gets to split between 18 and 22 hours since its
     // creation.
     if (_.includes(bottom20, path) &&
-        virtualHrElapsedSinceCreation > durationHr) {
+        virtualHrElapsedSinceCellCreation > durationHr) {
 
       // Lower number means higher position.
       infoMapCursor.set(`${path}.1`, {
-        createTimeMs: now,
+        createTimeVirtualHr: nextMomentVirtualHr,
         durationHr: _.random(18, 22, true),
         height: height / 2,
-        lastTouchedMs: now
+        lastTouchedVirtualHr: nextMomentVirtualHr
       });
 
       infoMapCursor.set(`${path}.2`, {
-        createTimeMs: now,
+        createTimeVirtualHr: nextMomentVirtualHr,
         durationHr: _.random(18, 22, true),
         height: height / 2,
-        lastTouchedMs: now
+        lastTouchedVirtualHr: nextMomentVirtualHr
       });
 
       infoMapCursor.unset(path);
@@ -91,4 +86,4 @@ function proceedCellsToNextFrame(nextFrameTimeMs) {
 
 }
 
-module.exports = proceedCellsToNextFrame;
+module.exports = proceedCellsToNextMoment;
