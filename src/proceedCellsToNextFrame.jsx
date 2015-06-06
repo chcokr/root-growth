@@ -33,30 +33,30 @@ const performanceNow = require('react/lib/performanceNow');
  */
 function proceedCellsToNextFrame(nextFrameTimeMs) {
 
-  const mapCursor = cursors.cellCreationPathToInfoMap;
-  const map = mapCursor.get();
+  const infoMapCursor = cursors.cellCreationPathToInfoMap;
+  const infoMap = infoMapCursor.get();
 
-  const paths = Object.keys(map);
-  const pathsSorted = Object.keys(map).sort();
+  const paths = Object.keys(infoMap);
+  const pathsSorted = Object.keys(infoMap).sort();
   const bottom20 = _.takeRight(pathsSorted, 20);
 
   // Grow each cell's height.
   for (let path of paths) {
     const now = performanceNow();
 
-    const createTimeMs = map[path].createTimeMs;
-    const durationHr = map[path].durationHr;
-    const height = map[path].height;
-    const lastTouchedMs = map[path].lastTouchedMs;
+    const createTimeMs = infoMap[path].createTimeMs;
+    const durationHr = infoMap[path].durationHr;
+    const height = infoMap[path].height;
+    const lastTouchedMs = infoMap[path].lastTouchedMs;
 
     const visualMsElapsedSinceLastTouch = nextFrameTimeMs - lastTouchedMs;
     const virtualHrElapsedSinceLastTouch =
       (visualMsElapsedSinceLastTouch / 1000) *
         cursors.virtualHourElapsePerVisualSec.get();
 
-    mapCursor.set([path, 'height'],
+    infoMapCursor.set([path, 'height'],
       height + virtualHrElapsedSinceLastTouch * 10); // 10 = speed of growth
-    mapCursor.set([path, 'lastTouchedMs'], now);
+    infoMapCursor.set([path, 'lastTouchedMs'], now);
 
     const visualMsElapsedSinceCreation =
       nextFrameTimeMs - createTimeMs;
@@ -70,21 +70,21 @@ function proceedCellsToNextFrame(nextFrameTimeMs) {
         virtualHrElapsedSinceCreation > durationHr) {
 
       // Lower number means higher position.
-      mapCursor.set(`${path}.1`, {
+      infoMapCursor.set(`${path}.1`, {
         createTimeMs: now,
         durationHr: _.random(18, 22, true),
         height: height / 2,
         lastTouchedMs: now
       });
 
-      mapCursor.set(`${path}.2`, {
+      infoMapCursor.set(`${path}.2`, {
         createTimeMs: now,
         durationHr: _.random(18, 22, true),
         height: height / 2,
         lastTouchedMs: now
       });
 
-      mapCursor.unset(path);
+      infoMapCursor.unset(path);
 
     }
   }
