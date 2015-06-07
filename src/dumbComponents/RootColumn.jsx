@@ -9,10 +9,24 @@ const utils = require('../utils.jsx');
  */
 class RootColumn extends utils.PureRenderComponent {
   render() {
+    const inhConcens = this.props.inhConcens.map((c, i) =>
+      <div
+        className="concentration-pos-x094g0aa"
+        key={i}
+        style={{
+          opacity: c
+        }}
+      />);
+
     return (
-      <div className="root-vz0v23r">
-        {this.props.cells}
-        <QuietCell />
+      <div className="root-column-vz0v23r">
+        <div className="cell-boundaries-23nv0923f">
+          {this.props.cells}
+          <QuietCell />
+        </div>
+        <div className="concentrations-overlay-v09ajv">
+          {inhConcens}
+        </div>
       </div>
     );
   }

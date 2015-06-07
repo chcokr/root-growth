@@ -23,7 +23,8 @@ const baobab = require('baobab-react/decorators');
  */
 @baobab.branch({
   cursors: {
-    cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap
+    cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap,
+    inhConcens: cursors.diffeq.concens.inh
   },
   facets: {
     rootHeight: 'rootHeight'
@@ -61,7 +62,10 @@ class RootViewContainer extends utils.PureRenderComponent {
     ];
 
     return (
-      <RootView cells={cells} />
+      <RootView
+        cells={cells}
+        inhConcens={this.props.inhConcens}
+      />
     );
   }
 }
