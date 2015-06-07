@@ -1,22 +1,17 @@
 const _ = require('./lodash.jsx');
 const Baobab = require('baobab');
-const performanceNow = require('react/lib/performanceNow');
-
-const now = performanceNow();
 
 // For a description of each property in the tree, see stateCursors.jsx.
 module.exports = new Baobab({
   cellCreationPathToInfoMap: _.range(1, 6).reduce((map, i) => {
     map[i] = {
-      createTimeMs: now,
+      createTimeVirtualHr: 0,
       durationHr: _.random(18, 22, true),
       height: 20,
-      lastTouchedMs: now
+      lastTouchedVirtualHr: 0
     };
     return map;
   }, {}),
-  curFrameTimeMs: now,
-  virtualHourElapsePerVisualSec: 12,
   virtualHoursElapsed: 0
 }, {
   facets: {
