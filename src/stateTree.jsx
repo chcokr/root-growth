@@ -25,13 +25,11 @@ module.exports = new Baobab({
 
         let totalHeight = 0;
         for (let path of paths) {
-          // 1px for the top border of the Cell
-          totalHeight += map[path].height + 1;
+          totalHeight += map[path].height;
         }
 
-        // 100px for the QuietCell height,
-        // 2px for its top and bottom borders
-        totalHeight += 100 + 2;
+        // 100px for the QuietCell height.
+        totalHeight += 100;
 
         return totalHeight;
       }
