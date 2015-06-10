@@ -1,6 +1,7 @@
 require('./RootColumn.scss');
 
 const QuietCell = require('./QuietCell.jsx');
+const _ = require('../lodash.jsx');
 const utils = require('../utils.jsx');
 
 /**
@@ -9,12 +10,15 @@ const utils = require('../utils.jsx');
  */
 class RootColumn extends utils.PureRenderComponent {
   render() {
+    const maxConcen = _.max(this.props.inhConcens);
+    const minConcen = _.min(this.props.inhConcens);
+
     const inhConcens = this.props.inhConcens.map((c, i) =>
       <div
         className="concentration-pos-x094g0aa"
         key={i}
         style={{
-          opacity: c
+          opacity: (c - minConcen) / (maxConcen - minConcen)
         }}
       />);
 
