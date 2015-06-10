@@ -21,7 +21,9 @@ global.React = React;
 React.render(<AppContainer />, document.getElementById('cwb-app'));
 
 (async function () {
-  let renditionVirtualHrInterval = 2;
+  let renditionVirtualHrIntervalBeforeFirstAiCellAppears = 2;
+  let renditionVirtualHrIntervalAfterFirstAiCellAppears =
+    0.2 / 60 / 60; // 0.2 sec
 
   let hasFirstAiCellAppeared = false;
 
@@ -30,11 +32,17 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
     let cellCreationPathToInfoMap = cursors.cellCreationPathToInfoMap.get();
     let virtualHrsElapsedSinceStart = cursors.virtualHoursElapsed.get();
 
-    // Defines the delay between every rendered moment.
-    await Promise.delay(50);
+    const renditionVirtualHrInterval =
+      hasFirstAiCellAppeared ?
+        renditionVirtualHrIntervalAfterFirstAiCellAppears :
+        renditionVirtualHrIntervalBeforeFirstAiCellAppears;
 
     const nextMomentVirtualHr =
       virtualHrsElapsedSinceStart + renditionVirtualHrInterval;
+
+    // Without this seemingly meaningless delay, the JS engine tries to run
+    // this infinite loop way too fast and the browser will become unresponsive.
+    await Promise.delay(0);
 
     const nextCellCreationPathToInfoMap =
       proceedCellsToNextMoment(
