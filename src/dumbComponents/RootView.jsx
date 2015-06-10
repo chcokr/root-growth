@@ -14,6 +14,7 @@ class RootView extends utils.PureRenderComponent {
         <RootColumn
           cells={this.props.cells}
           inhConcens={this.props.inhConcens}
+          numConcenPositions={this.props.numConcenPositions}
         />
       </div>
     );

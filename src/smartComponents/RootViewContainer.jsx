@@ -65,6 +65,7 @@ class RootViewContainer extends utils.PureRenderComponent {
       <RootView
         cells={cells}
         inhConcens={this.props.inhConcens}
+        numConcenPositions={1000}
       />
     );
   }

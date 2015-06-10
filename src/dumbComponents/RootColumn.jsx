@@ -10,17 +10,30 @@ const utils = require('../utils.jsx');
  */
 class RootColumn extends utils.PureRenderComponent {
   render() {
-    const maxConcen = _.max(this.props.inhConcens);
-    const minConcen = _.min(this.props.inhConcens);
+    const inhConcenVals = this.props.inhConcens;
+    const numConcenPositions = this.props.numConcenPositions;
 
-    const inhConcens = this.props.inhConcens.map((c, i) =>
-      <div
-        className="concentration-pos-x094g0aa"
-        key={i}
-        style={{
-          opacity: (c - minConcen) / (maxConcen - minConcen)
-        }}
-      />);
+    const maxConcen = _.max(inhConcenVals);
+    const minConcen = _.min(inhConcenVals);
+
+    const includeEvery =
+      (inhConcenVals.length / // eslint-disable-line no-bitwise
+        numConcenPositions) | 0; // rounds off the number to an integer *fast*
+    let inhConcenPosElems = [];
+    for (let i = 0; i < inhConcenVals.length; i += 1) {
+      if (i % includeEvery === 0) {
+        inhConcenPosElems.push(
+          <div
+            className="concentration-pos-x094g0aa"
+            key={i / includeEvery}
+            style={{
+              height: `calc(100% / ${numConcenPositions})`,
+              opacity: (inhConcenVals[i] - minConcen) / (maxConcen - minConcen)
+            }}
+          />
+        );
+      }
+    }
 
     return (
       <div className="root-column-vz0v23r">
@@ -29,7 +42,7 @@ class RootColumn extends utils.PureRenderComponent {
           <QuietCell />
         </div>
         <div className="concentrations-overlay-v09ajv">
-          {inhConcens}
+          {inhConcenPosElems}
         </div>
       </div>
     );
