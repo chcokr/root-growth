@@ -12,9 +12,10 @@ class Sidebar extends utils.PureRenderComponent {
     return (
       <div className="sidebar-0vz9he023">
         <p>
-          {hoursElapsed.toFixed(1)} hours
-          ({(hoursElapsed / 24).toFixed(1)} days)
-          elapsed
+          {(hoursElapsed * 60 * 60).toFixed(1)} seconds <br />
+          {(hoursElapsed * 60).toFixed(1)} minutes <br />
+          {hoursElapsed.toFixed(1)} hours <br />
+          {(hoursElapsed / 24).toFixed(1)} days have elapsed
         </p>
       </div>
     );
