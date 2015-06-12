@@ -36,6 +36,7 @@ module.exports = new Baobab({
       sourceDensity: actDiffuCoeff * 0.99
     }
   },
+  rootViewHeight: 500,
   virtualHoursElapsed: 0
 }, {
   facets: {

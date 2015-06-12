@@ -53,3 +53,5 @@ module.exports.diffeq.consts.sourceDensity =
  * session began.
  */
 module.exports.virtualHoursElapsed = stateTree.select('virtualHoursElapsed');
+
+module.exports.rootViewHeight = stateTree.select('rootViewHeight');
