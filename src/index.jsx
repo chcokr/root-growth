@@ -24,8 +24,7 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
 
 (async function () { // eslint-disable-line max-statements
   let renditionVirtualHrIntervalBeforeFirstAiCellAppears = 2;
-  let renditionVirtualHrIntervalAfterFirstAiCellAppears =
-    0.2 / 60 / 60; // 0.2 sec
+  let renditionVirtualHrIntervalAfterFirstAiCellAppears = 0.1 / 60; // 0.1 min
 
   let lastState = {
     cellCreationPathToInfoMap: cursors.cellCreationPathToInfoMap.get(),
