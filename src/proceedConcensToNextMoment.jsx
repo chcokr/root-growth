@@ -32,7 +32,7 @@ function getNextConcensAtPos({
   }
 
   const nextActConcen =
-    actConcen + actRateOfchangeWrtTime * virtualHrSinceLastRendition;
+    actConcen + actRateOfchangeWrtTime * virtualHrSinceLastRendition * 60 * 60;
 
   const inhRateOfChangeWrtPos1 = (inhConcen - inhConcenOneBefore) / 1;
   const inhRateOfChangeWrtPos2 = (inhConcenOneNext - inhConcen) / 1;
@@ -45,7 +45,7 @@ function getNextConcensAtPos({
       inhDiffuCoeff * inhSecondDerivWrtPos;
 
   const nextInhConcen =
-    inhConcen + inhRateOfchangeWrtTime * virtualHrSinceLastRendition;
+    inhConcen + inhRateOfchangeWrtTime * virtualHrSinceLastRendition * 60 * 60;
 
   return {nextActConcen, nextInhConcen};
 }
