@@ -38,12 +38,11 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
     virtualHrsElapsedSinceStart: cursors.virtualHoursElapsed.get()
   };
 
-  while (lastState.virtualHrsElapsedSinceStart < 24 * 5) {
+  while (true) {
 
     let lastRenditionTimeMs = performanceNow();
 
     while (performanceNow() - lastRenditionTimeMs < 500) {
-      console.time('cycle');
 
       let cellCreationPathToInfoMap = lastState.cellCreationPathToInfoMap;
       let virtualHrsElapsedSinceStart = lastState.virtualHrsElapsedSinceStart;
@@ -64,7 +63,6 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
 
       const nextRootHeight = getRootHeight(nextCellCreationPathToInfoMap);
 
-      console.time('concens');
       const {nextActConcens, nextHasFirstAiCellAppeared, nextInhConcens} =
         proceedConcensToNextMoment({
           actConcens: lastState.diffeq.concens.act,
@@ -81,7 +79,6 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
           nextRootHeight,
           virtualHrSinceLastRendition: renditionVirtualHrInterval
         });
-      console.timeEnd('concens');
 
       lastState.cellCreationPathToInfoMap = nextCellCreationPathToInfoMap;
       lastState.diffeq.concens.act = nextActConcens;
@@ -89,7 +86,6 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
       lastState.diffeq.hasFirstAiCellAppeared = nextHasFirstAiCellAppeared;
       lastState.virtualHrsElapsedSinceStart = nextMomentVirtualHr;
 
-      console.timeEnd('cycle');
     }
 
     // Trigger UI update
