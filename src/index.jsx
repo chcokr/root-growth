@@ -42,6 +42,7 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
 
     let lastRenditionTimeMs = performanceNow();
 
+    // Render graphics every 500ms.
     while (performanceNow() - lastRenditionTimeMs < 500) {
 
       let cellCreationPathToInfoMap = lastState.cellCreationPathToInfoMap;
@@ -93,7 +94,8 @@ React.render(<AppContainer />, document.getElementById('cwb-app'));
     cursors.diffeq.concens.act.set(lastState.diffeq.concens.act);
     cursors.diffeq.concens.inh.set(lastState.diffeq.concens.inh);
     cursors.virtualHoursElapsed.set(lastState.virtualHrsElapsedSinceStart);
-
+    // Without this seemingly useless delay, the infinite loop allows no time
+    // for graphics rendition.
     await Promise.delay(0);
 
   }
