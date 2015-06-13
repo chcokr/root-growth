@@ -27,7 +27,7 @@ module.exports = new Baobab({
     consts: {
       // Note about units:
       // - The unit of length is pixel.
-      // - The unit of length is virtual second.
+      // - The unit of time is virtual second.
       actDecayCoeff: 0.00019,
       actDiffuCoeff,
       aiCellThreshold: 10,
