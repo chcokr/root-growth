@@ -56,9 +56,6 @@ class RootColumn extends utils.PureRenderComponent {
     const inhConcenVals = this.props.inhConcens;
     const numConcenPositions = this.props.numConcenPositions;
 
-    const maxConcen = _.max(inhConcenVals);
-    const minConcen = _.min(inhConcenVals);
-
     const includeEvery = inhConcenVals.length / numConcenPositions;
     const inhConcenPosElems =
       _.range(numConcenPositions)
@@ -75,8 +72,7 @@ class RootColumn extends utils.PureRenderComponent {
               ref={`pos${i}`}
               style={{
                 height: this.props.height / numConcenPositions,
-                opacity: (inhConcenVals[nearestIntIndex] - minConcen) /
-                  (maxConcen - minConcen)
+                opacity: inhConcenVals[nearestIntIndex]
               }}
             />
           );
