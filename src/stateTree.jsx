@@ -14,7 +14,7 @@ const initCellCreationPathToInfoMap =
     return map;
   }, {});
 
-const actDiffuCoeff = 0.01;
+const actDiffuCoeff = 0.9375;
 
 // For a description of each property in the tree, see stateCursors.jsx.
 module.exports = new Baobab({
@@ -28,11 +28,11 @@ module.exports = new Baobab({
       // Note about units:
       // - The unit of length is pixel.
       // - The unit of length is virtual second.
-      actDecayCoeff: 0.02,
+      actDecayCoeff: 0.00019,
       actDiffuCoeff,
       aiCellThreshold: 10,
-      inhDecayCoeff: 0.03,
-      inhDiffuCoeff: 0.4,
+      inhDecayCoeff: 0.00025,
+      inhDiffuCoeff: 250,
       sourceDensity: actDiffuCoeff * 0.99
     }
   },
