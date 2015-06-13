@@ -123,7 +123,7 @@ function proceedConcensToNextMoment({
     nextInhConcens[i] = nextInhConcen;
   }
 
-  const randomIndexToInspect = _.random(nextRootHeightInt);
+  const randomIndexToInspect = _.random(nextRootHeightInt - 1);
   if (!isFinite(nextActConcens[randomIndexToInspect])) {
     throw new Error('nextActConcens contains a non-finite element' +
       ` (at index ${randomIndexToInspect} -` +
