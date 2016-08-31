@@ -5,7 +5,7 @@
 This webapp aims to provide a simulation of oscillatory behavior in the
 Arabidopsis root, which underlies the formation of lateral root primordia.
 
-Check out the demo at https://chcokr.github.io/root-growth.
+Check out the demo at https://why-jay.github.io/root-growth.
 
 This project is being developed as part of a research project at Duke
 University's [Benfey Laboratory](http://sites.duke.edu/benfey/).
